@@ -1,13 +1,78 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PagePop Wallet</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
 <body>
-  <h1>Welcome to PagePop Wallet</h1>
-  <p>This is a simulated frontend page.</p>
+  <div class="container">
+    <header>
+      <h1>🪙 PagePop Wallet</h1>
+      <button id="connectBtn">지갑 연결</button>
+    </header>
+
+    <section id="walletSection" class="hidden">
+      <div class="info">
+        <p><strong>주소:</strong> <span id="walletAddress"></span></p>
+        <p><strong>잔액:</strong> <span id="walletBalance"></span> ETH</p>
+      </div>
+
+      <div class="transfer">
+        <h2>토큰 전송</h2>
+        <input type="text" id="toAddress" placeholder="받는 주소" />
+        <input type="text" id="amount" placeholder="ETH 수량" />
+        <button id="sendBtn">전송</button>
+        <p id="txStatus"></p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let web3;
+    const connectBtn = document.getElementById('connectBtn');
+    const walletSection = document.getElementById('walletSection');
+    const walletAddress = document.getElementById('walletAddress');
+    const walletBalance = document.getElementById('walletBalance');
+    const sendBtn = document.getElementById('sendBtn');
+
+    connectBtn.onclick = async () => {
+      if (window.ethereum) {
+        try {
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          web3 = new Web3(window.ethereum);
+          const accounts = await web3.eth.getAccounts();
+          const balance = await web3.eth.getBalance(accounts[0]);
+          walletAddress.textContent = accounts[0];
+          walletBalance.textContent = web3.utils.fromWei(balance, 'ether');
+          walletSection.classList.remove('hidden');
+        } catch (err) {
+          alert('지갑 연결 실패: ' + err.message);
+        }
+      } else {
+        alert('MetaMask를 설치해주세요.');
+      }
+    };
+
+    sendBtn.onclick = async () => {
+      const to = document.getElementById('toAddress').value;
+      const value = document.getElementById('amount').value;
+      const accounts = await web3.eth.getAccounts();
+
+      web3.eth.sendTransaction({
+        from: accounts[0],
+        to,
+        value: web3.utils.toWei(value, 'ether')
+      })
+      .then(tx => {
+        document.getElementById('txStatus').textContent = '전송 성공: ' + tx.transactionHash;
+      })
+      .catch(err => {
+        document.getElementById('txStatus').textContent = '전송 실패: ' + err.message;
+      });
+    };
+  </script>
 </body>
 </html>
