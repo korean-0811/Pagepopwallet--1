@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Wallet</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="dark-theme">
+  <div class="wallet">
+    <h2>내 코인지갑</h2>
+    <p>사용자: <span id="usernameDisplay"></span></p>
+    <p>보유 잔액: <span id="balance">0</span> USDT</p>
+    <p>실시간 시세: <span id="price">-</span></p>
+
+    <h3>송금하기</h3>
+    <input type="text" id="receiver" placeholder="받는 사람 주소" />
+    <input type="number" id="amount" placeholder="수량" />
+    <button onclick="sendTokens()">송금</button>
+
+    <h3>입금 주소</h3>
+    <p>TRC20 주소: <code>TXabc123...</code></p>
+    <p>ERC20 주소: <code>0xdef456...</code></p>
+  </div>
+
+  <script src="js/wallet.js"></script>
+</body>
+</html>
