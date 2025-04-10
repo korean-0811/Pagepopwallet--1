@@ -1,53 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>PagePop Wallet</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PagePop Wallet</title>
+  <link rel="stylesheet" href="style/main.css" />
 </head>
-<body>
-    <div class="container">
-        <h1>당신의 안전한 디지털 자산 보관소</h1>
-        <p>간편하게 다양한 코인을 송수신하고, 실시간 시세를 확인하세요.</p>
-        <div class="tabs">
-            <button onclick="showTab('wallet')">지갑</button>
-            <button onclick="showTab('info')">내 정보</button>
-            <button onclick="showTab('contact')">문의하기</button>
-        </div>
-        <div id="wallet" class="tab-content">
-            <h2>지갑</h2>
-            <p>실시간 시세</p>
-            <ul id="prices">
-                <li>BTC: <span id="btc">-</span></li>
-                <li>ETH: <span id="eth">-</span></li>
-                <li>USDT(TRC20): <span id="usdt_trc">-</span></li>
-                <li>USDT(ETH): <span id="usdt_eth">-</span></li>
-                <li>LTC: <span id="ltc">-</span></li>
-                <li>XRP: <span id="xrp">-</span></li>
-                <li>SOL: <span id="sol">-</span></li>
-            </ul>
-            <button onclick="showReceive()">📥 수신</button>
-            <div id="receive" class="hidden">
-                <h3>내 지갑 주소</h3>
-                <ul>
-                    <li>TRC20: TFBc6MT7EojKswxZurGDkPts1NkbQ3MfAp</li>
-                    <li>USDT(ETH): 0xa8A214Bc87e63AD8dd45C73f6B9D20cA462ba14B</li>
-                    <li>USDT(Solana): 2B2PUvb527NAmo8LZnpLjwjLp15JfRWzcKGQgjtLG4WG</li>
-                    <li>BTC: bc1q9nnxjne2yqwftj6upreaderpmdxzlv9c225vhv</li>
-                    <li>ETH: 0xa8A214Bc87e63AD8dd45C73f6B9D20cA462ba14B</li>
-                    <li>LTC: LMf74BCckmDmgWQrUk29XeHr5L8oHo7eaK</li>
-                </ul>
-            </div>
-        </div>
-        <div id="info" class="tab-content hidden">
-            <h2>내 정보</h2>
-            <p>로그인 없이 간단한 접근 가능</p>
-        </div>
-        <div id="contact" class="tab-content hidden">
-            <h2>문의하기</h2>
-            <p>문의사항은 이메일로: snow1pass@proton.me</p>
-        </div>
+<body class="home">
+  <div class="home-container">
+    <img src="assets/logo.png" class="logo" />
+    <h1>당신의 안전한 디지털 자산 보관소</h1>
+    <button id="loginBtn" class="btn">로그인</button>
+  </div>
+
+  <!-- 로그인/회원가입 팝업 -->
+  <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <h2>로그인 또는 회원가입</h2>
+      <input id="email" type="email" placeholder="이메일" />
+      <input id="password" type="password" placeholder="비밀번호" />
+      <div class="btn-group">
+        <button onclick="login()">로그인</button>
+        <button onclick="signup()">회원가입</button>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="js/main.js"></script>
 </body>
 </html>
